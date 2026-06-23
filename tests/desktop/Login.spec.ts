@@ -7,12 +7,18 @@ test.describe("Login page", () => {
     { username: "standard_user", password: "", label: "empty password" },
   ];
 
-  test("Landing page has title", async ({ loginPage }) => {
+  test("Home page has title", async ({ loginPage }) => {
     await loginPage.expectTitleVisible();
   });
 
-  test("Login form is correct by data-test", async ({ loginPage }) => {
+  test("Login form is correctly shown", async ({ loginPage }) => {
     await loginPage.expectFormVisible();
+  });
+
+  test("Successful login navigates to Products page", async ({
+    productsPage,
+  }) => {
+    await productsPage.expectPageVisible();
   });
 
   for (const { username, password, label } of invalidCredentials) {
