@@ -1,12 +1,7 @@
 import { test } from "@fixtures";
+import { invalidCredentials, users } from "testdata/users";
 
 test.describe("Login page", () => {
-  const invalidCredentials = [
-    { username: "", password: "", label: "empty credentials" },
-    { username: "", password: "secret_sauce", label: "empty username" },
-    { username: "standard_user", password: "", label: "empty password" },
-  ];
-
   test("Home page has title", async ({ loginPage }) => {
     await loginPage.expectTitleVisible();
   });
@@ -21,10 +16,16 @@ test.describe("Login page", () => {
     await productsPage.expectPageVisible();
   });
 
-  for (const { username, password, label } of invalidCredentials) {
+  for (const { username, password, label, errorMsg } of invalidCredentials) {
     test(`Error message for ${label}`, async ({ loginPage }) => {
       await loginPage.login(username, password);
-      await loginPage.expectErrorVisible();
+      await loginPage.expectErrorMessage(errorMsg);
     });
   }
+
+  test("Locked out user gets error message", async ({ loginPage }) => {
+    const { username, password, errorMsg } = users.lockedOut;
+    await loginPage.login(username, password);
+    await loginPage.expectErrorMessage(errorMsg);
+  });
 });
