@@ -1,6 +1,7 @@
 import { test as base } from "@playwright/test";
 import { LoginPage } from "@pages/LoginPage";
 import { ProductsPage } from "@pages/ProductsPage";
+import { users } from "testdata/users";
 
 type MyFixtures = {
   loginPage: LoginPage;
@@ -15,7 +16,8 @@ export const test = base.extend<MyFixtures>({
   },
 
   productsPage: async ({ page, loginPage }, use) => {
-    await loginPage.login("standard_user", "secret_sauce");
+    const { username, password } = users.standard;
+    await loginPage.login(username, password);
     const productsPage = new ProductsPage(page);
     await use(productsPage);
   },
