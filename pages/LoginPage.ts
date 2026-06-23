@@ -35,7 +35,8 @@ export class LoginPage {
     await expect(this.title).toBeVisible();
   }
 
-  async expectErrorVisible() {
+  async expectErrorMessage(message: string) {
     await expect(this.errorMsg).toBeVisible();
+    await expect(this.errorMsg).toContainText(message);
   }
 }
