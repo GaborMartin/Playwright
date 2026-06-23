@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "strict": true,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@fixtures": ["fixtures/fixtures.ts"],
+      "@pages/*": ["pages/*"]
+    }
+  }
+}
