@@ -4,11 +4,11 @@ import { createRepository, deleteRepository } from "../utils/api-helper";
 import { USER } from "testdata/constants";
 
 type ApiFixtures = {
-  repoName: string;
+  repository: string;
 };
 
 export const test = base.extend<ApiFixtures>({
-  repoName: async ({ request }, use, testInfo) => {
+  repository: async ({ request }, use, testInfo) => {
     const repoName = `ApiTesting-${testInfo.testId}`;
     const createResponse = await createRepository(request, repoName);
     expect(createResponse.status()).toBe(201);
