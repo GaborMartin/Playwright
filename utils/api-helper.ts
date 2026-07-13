@@ -63,6 +63,39 @@ export async function retrieveIssues(
 }
 
 /**
+ * Retrieves a list of starred repositories for a user.
+ */
+export async function checkRepositoryStarred(
+  request: APIRequestContext,
+  user: string,
+  repository: string,
+): Promise<APIResponse> {
+  return request.get(`/user/starred/${user}/${repository}`);
+}
+
+/**
+ * Stars a repository.
+ */
+export async function starRepository(
+  request: APIRequestContext,
+  user: string,
+  repository: string,
+): Promise<APIResponse> {
+  return request.put(`/user/starred/${user}/${repository}`);
+}
+
+/**
+ * Unstars a repository.
+ */
+export async function unstarRepository(
+  request: APIRequestContext,
+  user: string,
+  repository: string,
+): Promise<APIResponse> {
+  return request.delete(`/user/starred/${user}/${repository}`);
+}
+
+/**
  * Polls a list-returning API call until it contains an item matching the expected shape.
  */
 export async function waitForItemInList<T>(
