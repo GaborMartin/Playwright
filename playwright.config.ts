@@ -5,9 +5,6 @@ import dotenv from "dotenv";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 dotenv.config();
 
@@ -39,7 +36,7 @@ export default defineConfig({
       testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://www.saucedemo.com",
+        baseURL: "https://github.com/",
         viewport: {
           width: 1728,
           height: 1117,
@@ -52,7 +49,7 @@ export default defineConfig({
       testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://www.saucedemo.com",
+        baseURL: "https://github.com/",
         viewport: {
           width: 1728,
           height: 1117,
@@ -65,7 +62,7 @@ export default defineConfig({
       testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://www.saucedemo.com",
+        baseURL: "https://github.com/",
         viewport: {
           width: 1728,
           height: 1117,
@@ -89,11 +86,4 @@ export default defineConfig({
       },
     },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
