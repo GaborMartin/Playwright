@@ -1,7 +1,7 @@
 // utils/fixtures/api-fixtures.ts
 import { test as base, expect } from "@playwright/test";
 import { createRepository, deleteRepository } from "../utils/api-helper";
-import { USER } from "utils/constants";
+import { USER } from "testdata/constants";
 
 type ApiFixtures = {
   repoName: string;
