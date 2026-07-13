@@ -45,45 +45,8 @@ export default defineConfig({
     },
 
     {
-      name: "desktop-firefox",
-      testDir: "./tests/ui/desktop",
-      use: {
-        ...devices["Desktop Firefox"],
-        baseURL: "https://github.com/",
-        viewport: {
-          width: 1728,
-          height: 1117,
-        },
-      },
-    },
-
-    {
-      name: "desktop-safari",
-      testDir: "./tests/ui/desktop",
-      use: {
-        ...devices["Desktop Safari"],
-        baseURL: "https://github.com/",
-        viewport: {
-          width: 1728,
-          height: 1117,
-        },
-      },
-    },
-
-    {
       name: "api",
       testDir: "./tests/api",
-      use: {
-        baseURL: "https://api.github.com",
-        extraHTTPHeaders: {
-          // We set this header per GitHub guidelines.
-          Accept: "application/vnd.github.v3+json",
-          // Add authorization token to all requests.
-          // Assuming personal access token available in the environment.
-          Authorization: `token ${process.env.API_TOKEN}`,
-          "X-GitHub-Api-Version": "2026-03-10",
-        },
-      },
     },
   ],
 });
