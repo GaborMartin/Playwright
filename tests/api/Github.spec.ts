@@ -1,18 +1,11 @@
 import { test, expect } from "fixtures/api-fixtures";
 import {
-  createBug,
-  createRepository,
-  deleteRepository,
-  getBugs,
+  createIssue,
+  retrieveIssues,
   getRepository,
   waitForItemInList,
 } from "utils/api-helper";
-import { USER } from "utils/constants";
-
-const bug = {
-  title: "[Bug] report 1",
-  body: "Bug description",
-};
+import { bug, USER } from "testdata/constants";
 
 test("Should retrieve repository by name", async ({ request, repoName }) => {
   const response = await getRepository(request, USER, repoName);
@@ -25,11 +18,11 @@ test("Should create a bug and verifies it's present in bugs list", async ({
   request,
   repoName,
 }) => {
-  const response = await createBug(request, USER, repoName, bug);
+  const response = await createIssue(request, USER, repoName, bug);
   expect(response.ok()).toBeTruthy();
 
   await waitForItemInList(async () => {
-    const bugs = await getBugs(request, USER, repoName);
-    return bugs.json();
+    const issues = await retrieveIssues(request, USER, repoName);
+    return issues.json();
   }, bug);
 });
