@@ -11,12 +11,12 @@ export const test = base.extend<ApiFixtures>({
   repoName: async ({ request }, use, testInfo) => {
     const repoName = `ApiTesting-${testInfo.testId}`;
     const createResponse = await createRepository(request, repoName);
-    expect(createResponse.ok()).toBeTruthy();
+    expect(createResponse.status()).toBe(201);
 
     await use(repoName);
 
     const deleteResponse = await deleteRepository(request, USER, repoName);
-    expect(deleteResponse.ok()).toBeTruthy();
+    expect(deleteResponse.status()).toBe(204);
   },
 });
 
