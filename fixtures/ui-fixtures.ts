@@ -15,8 +15,8 @@ export const test = base.extend<MyFixtures>({
   },
 
   homePage: async ({ page, loginPage }, use) => {
-    const username = process.env.USER!;
-    const password = process.env.PASS!;
+    const username = process.env.USERNAME!;
+    const password = process.env.PASSWORD!;
     await loginPage.login(username, password);
     const homePage = new HomePage(page);
     await use(homePage);
