@@ -25,8 +25,7 @@ export default defineConfig({
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    trace: "on-first-retry",
-    baseURL: "https://www.saucedemo.com",
+    trace: "on",
   },
   tsconfig: "./tsconfig.json",
 
@@ -34,9 +33,10 @@ export default defineConfig({
   projects: [
     {
       name: "desktop-chrome",
-      testDir: "./tests/desktop",
+      testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Chrome"],
+        baseURL: "https://www.saucedemo.com",
         viewport: {
           width: 1728,
           height: 1117,
@@ -46,9 +46,10 @@ export default defineConfig({
 
     {
       name: "desktop-firefox",
-      testDir: "./tests/desktop",
+      testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Firefox"],
+        baseURL: "https://www.saucedemo.com",
         viewport: {
           width: 1728,
           height: 1117,
@@ -58,28 +59,22 @@ export default defineConfig({
 
     {
       name: "desktop-safari",
-      testDir: "./tests/desktop",
+      testDir: "./tests/ui/desktop",
       use: {
         ...devices["Desktop Safari"],
+        baseURL: "https://www.saucedemo.com",
         viewport: {
           width: 1728,
           height: 1117,
         },
       },
     },
-    {
-      name: "mobile-chrome",
-      testDir: "./tests/mobile",
-      use: {
-        ...devices["Pixel 7"],
-      },
-    },
 
     {
-      name: "mobile-safari",
-      testDir: "./tests/mobile",
+      name: "api",
+      testDir: "./tests/api",
       use: {
-        ...devices["iPhone 16e"],
+        baseURL: "https://api.github.com",
       },
     },
   ],
