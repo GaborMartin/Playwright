@@ -35,9 +35,9 @@ export async function deleteRepository(
 }
 
 /**
- * Creates a bug.
+ * Creates a new issue.
  */
-export async function createBug(
+export async function createIssue(
   request: APIRequestContext,
   user: string,
   repository: string,
@@ -52,9 +52,9 @@ export async function createBug(
 }
 
 /**
- * Retrieves a list of bugs for a repository.
+ * Retrieves a list of issues for a repository.
  */
-export async function getBugs(
+export async function retrieveIssues(
   request: APIRequestContext,
   user: string,
   repository: string,
