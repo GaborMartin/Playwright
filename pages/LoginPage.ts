@@ -1,22 +1,23 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { HomePage } from "./HomePage";
 
 export class LoginPage {
   readonly title: Locator;
   readonly username: Locator;
   readonly password: Locator;
   readonly loginBtn: Locator;
-  readonly errorMsg: Locator;
 
   constructor(private page: Page) {
-    this.title = page.getByText("Swag Labs");
-    this.username = page.locator('[data-test="username"]');
-    this.password = page.locator('[data-test="password"]');
-    this.loginBtn = page.locator('[data-test="login-button"]');
-    this.errorMsg = page.locator('[data-test="error"]');
+    this.title = page.getByRole("heading", { name: "Sign in to GitHub" });
+    this.username = page.getByRole("textbox", {
+      name: "Username or email address",
+    });
+    this.password = page.getByRole("textbox", { name: "Password" });
+    this.loginBtn = page.getByRole("button", { name: "Sign in", exact: true });
   }
 
   async open() {
-    await this.page.goto("/");
+    await this.page.goto("/login");
   }
 
   async login(username: string, password: string) {
@@ -33,10 +34,5 @@ export class LoginPage {
 
   async expectTitleVisible() {
     await expect(this.title).toBeVisible();
-  }
-
-  async expectErrorMessage(message: string) {
-    await expect(this.errorMsg).toBeVisible();
-    await expect(this.errorMsg).toContainText(message);
   }
 }
