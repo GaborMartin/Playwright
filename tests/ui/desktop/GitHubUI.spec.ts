@@ -1,4 +1,4 @@
-import { test } from "fixtures/ui-fixtures";
+import { test, expect } from "fixtures/index";
 
 test.describe("GitHub UI tests", () => {
   test("Should have correct title", async ({ loginPage }) => {
@@ -9,5 +9,14 @@ test.describe("GitHub UI tests", () => {
     homePage,
   }) => {
     await homePage.expectPageVisible();
+  });
+
+  test("Created repository is visible", async ({
+    homePage,
+    repositoryName,
+    page,
+  }) => {
+    await homePage.navigateToRepositories();
+    expect(page.getByRole("link", { name: repositoryName })).toBeVisible();
   });
 });
