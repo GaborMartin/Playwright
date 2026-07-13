@@ -18,5 +18,4 @@ export const test = base.extend<ApiFixtures>({
     expect(deleteResponse.status()).toBe(204);
   },
 });
-
 export { expect };
