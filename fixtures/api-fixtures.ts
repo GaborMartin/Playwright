@@ -9,21 +9,27 @@ import { USER } from "testdata/constants";
 
 type ApiFixtures = {
   repositoryName: string;
+};
+
+type ApiWorkerFixtures = {
   githubRequest: APIRequestContext;
 };
 
-export const test = base.extend<ApiFixtures>({
-  githubRequest: async ({}, use) => {
-    const context = await playwrightRequest.newContext({
-      baseURL: "https://api.github.com",
-      extraHTTPHeaders: {
-        Authorization: `Bearer ${process.env.API_TOKEN}`,
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    });
-    await use(context);
-    await context.dispose(); // clean up the context after the test
-  },
+export const test = base.extend<ApiFixtures, ApiWorkerFixtures>({
+  githubRequest: [
+    async ({}, use) => {
+      const context = await playwrightRequest.newContext({
+        baseURL: "https://api.github.com",
+        extraHTTPHeaders: {
+          Authorization: `Bearer ${process.env.API_TOKEN}`,
+          "X-GitHub-Api-Version": "2026-03-10",
+        },
+      });
+      await use(context);
+      await context.dispose();
+    },
+    { scope: "worker" },
+  ],
 
   repositoryName: async ({ githubRequest }, use, testInfo) => {
     const repoName = `ApiTesting-${testInfo.testId}`;
