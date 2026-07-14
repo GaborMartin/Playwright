@@ -3,12 +3,11 @@ import { LoginPage } from "@pages/LoginPage";
 import { HomePage } from "@pages/HomePage";
 
 type MyFixtures = {
-  loginPage: LoginPage;
   homePage: HomePage;
 };
 
 export const test = base.extend<MyFixtures>({
-  homePage: async ({ page, loginPage }, use) => {
+  homePage: async ({ page }, use) => {
     await page.goto("/");
     const homePage = new HomePage(page);
     await use(homePage);
