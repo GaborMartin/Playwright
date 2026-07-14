@@ -32,8 +32,17 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: "setup",
+      testDir: "./utils",
+      testMatch: /auth\.setup\.ts/,
+      use: {
+        baseURL: "https://github.com/",
+      },
+    },
+    {
       name: "desktop-chrome",
       testDir: "./tests/ui/desktop",
+      dependencies: ["setup"],
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://github.com/",
@@ -41,6 +50,7 @@ export default defineConfig({
           width: 1728,
           height: 1117,
         },
+        storageState: ".auth/github.json",
       },
     },
 
