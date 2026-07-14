@@ -6,11 +6,15 @@ test.describe("GitHub UI tests", () => {
   });
 
   test("Created repository is visible", async ({
-    homePage,
-    repositoryName,
     page,
+    repositoriesPage,
+    repositoryName,
   }) => {
-    await homePage.navigateToRepositories();
-    expect(page.getByRole("link", { name: repositoryName })).toBeVisible();
+    await expect(async () => {
+      await page.reload();
+      await expect(
+        repositoriesPage.getRepositoryLink(repositoryName),
+      ).toBeVisible();
+    }).toPass({ timeout: 15000 });
   });
 });
