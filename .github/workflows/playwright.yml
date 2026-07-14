@@ -41,7 +41,7 @@ jobs:
           mkdir -p .auth
           echo "${{ secrets.AUTH_STATE }}" | base64 -d > .auth/github.json
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --project=desktop-chrome
         env:
           API_TOKEN: ${{ secrets.API_TOKEN }}
           USERNAME: ${{ secrets.USERNAME }}
