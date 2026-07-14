@@ -25,14 +25,4 @@ export class LoginPage {
     await this.password.fill(password);
     await this.loginBtn.click();
   }
-
-  async expectFormVisible() {
-    await expect(this.username).toBeVisible();
-    await expect(this.password).toBeVisible();
-    await expect(this.loginBtn).toBeVisible();
-  }
-
-  async expectTitleVisible() {
-    await expect(this.title).toBeVisible();
-  }
 }
