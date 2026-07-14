@@ -42,7 +42,7 @@ export default defineConfig({
     {
       name: "desktop-chrome",
       testDir: "./tests/ui/desktop",
-      dependencies: ["setup"],
+      dependencies: process.env.CI ? [] : ["setup"],
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://github.com/",
