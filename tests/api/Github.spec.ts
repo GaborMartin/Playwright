@@ -9,9 +9,8 @@ import {
   waitForItemInList,
 } from "utils/api-helper";
 import { bug, USER } from "testdata/constants";
-import { describe } from "node:test";
 
-describe("GitHub API tests", () => {
+test.describe("GitHub API tests", () => {
   test("Should retrieve repository by name", async ({
     githubRequest,
     repositoryName,
@@ -44,39 +43,49 @@ describe("GitHub API tests", () => {
     githubRequest,
     repositoryName,
   }) => {
-    const initialCheck = await checkRepositoryStarred(
-      githubRequest,
-      USER,
-      repositoryName,
-    );
-    expect(initialCheck.status()).toBe(404);
+    await test.step("Verify repository is not starred initially", async () => {
+      const initialCheck = await checkRepositoryStarred(
+        githubRequest,
+        USER,
+        repositoryName,
+      );
+      expect(initialCheck.status()).toBe(404);
+    });
 
-    const starResponse = await starRepository(
-      githubRequest,
-      USER,
-      repositoryName,
-    );
-    expect(starResponse.status()).toBe(204);
+    await test.step("Star the repository", async () => {
+      const starResponse = await starRepository(
+        githubRequest,
+        USER,
+        repositoryName,
+      );
+      expect(starResponse.status()).toBe(204);
+    });
 
-    const starredCheck = await checkRepositoryStarred(
-      githubRequest,
-      USER,
-      repositoryName,
-    );
-    expect(starredCheck.status()).toBe(204);
+    await test.step("Verify repository is now starred", async () => {
+      const starredCheck = await checkRepositoryStarred(
+        githubRequest,
+        USER,
+        repositoryName,
+      );
+      expect(starredCheck.status()).toBe(204);
+    });
 
-    const unstarResponse = await unstarRepository(
-      githubRequest,
-      USER,
-      repositoryName,
-    );
-    expect(unstarResponse.status()).toBe(204);
+    await test.step("Unstar the repository", async () => {
+      const unstarResponse = await unstarRepository(
+        githubRequest,
+        USER,
+        repositoryName,
+      );
+      expect(unstarResponse.status()).toBe(204);
+    });
 
-    const finalCheck = await checkRepositoryStarred(
-      githubRequest,
-      USER,
-      repositoryName,
-    );
-    expect(finalCheck.status()).toBe(404);
+    await test.step("Verify repository is unstarred again", async () => {
+      const finalCheck = await checkRepositoryStarred(
+        githubRequest,
+        USER,
+        repositoryName,
+      );
+      expect(finalCheck.status()).toBe(404);
+    });
   });
 });
