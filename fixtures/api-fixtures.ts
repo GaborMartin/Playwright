@@ -32,7 +32,7 @@ export const test = base.extend<ApiFixtures, ApiWorkerFixtures>({
   ],
 
   repositoryName: async ({ githubRequest }, use, testInfo) => {
-    const repoName = `ApiTesting-${testInfo.testId}`;
+    const repoName = `ApiTesting-${testInfo.testId}-${Date.now()}`;
     const createResponse = await createRepository(githubRequest, repoName);
     expect(createResponse.status()).toBe(201);
 
