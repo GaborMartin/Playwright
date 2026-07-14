@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { RepositoriesPage } from "./RepositoriesPage";
 
 export class HomePage {
   readonly menuBtn: Locator;
@@ -32,5 +33,8 @@ export class HomePage {
   async navigateToRepositories() {
     await this.userNavigationBtn.click();
     await this.repositoriesLink.click();
+    const repositoriesPage = new RepositoriesPage(this.page);
+    await repositoriesPage.expectPageVisible();
+    return repositoriesPage;
   }
 }
