@@ -8,16 +8,8 @@ type MyFixtures = {
 };
 
 export const test = base.extend<MyFixtures>({
-  loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.open();
-    await use(loginPage);
-  },
-
   homePage: async ({ page, loginPage }, use) => {
-    const username = process.env.USERNAME!;
-    const password = process.env.PASSWORD!;
-    await loginPage.login(username, password);
+    await page.goto("/");
     const homePage = new HomePage(page);
     await use(homePage);
   },
