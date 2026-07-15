@@ -72,7 +72,7 @@ export async function retrieveIssues(
 }
 
 /**
- * Retrieves a list of starred repositories for a user.
+ * Retrieves a starred repository for a user.
  */
 export async function checkRepositoryStarred(
   request: APIRequestContext,
