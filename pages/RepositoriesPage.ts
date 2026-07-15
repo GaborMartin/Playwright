@@ -25,4 +25,11 @@ export class RepositoriesPage {
   getRepositoryLink(repositoryName: string): Locator {
     return this.page.getByRole("link", { name: repositoryName });
   }
+
+  async validateRepositoryVisible(repositoryName: string, timeout = 15000) {
+    await expect(async () => {
+      await this.page.reload();
+      await expect(this.getRepositoryLink(repositoryName)).toBeVisible();
+    }).toPass({ timeout });
+  }
 }
