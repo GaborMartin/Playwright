@@ -1,5 +1,14 @@
 import { APIRequestContext, APIResponse, expect } from "@playwright/test";
 
+const endpoints = {
+  userRepos: () => `/user/repos`,
+  repo: (user: string, repository: string) => `/repos/${user}/${repository}`,
+  issues: (user: string, repository: string) =>
+    `/repos/${user}/${repository}/issues`,
+  starred: (user: string, repository: string) =>
+    `/user/starred/${user}/${repository}`,
+};
+
 /**
  * Creates a new GitHub repository for the authenticated user.
  */
@@ -7,7 +16,7 @@ export async function createRepository(
   request: APIRequestContext,
   repository: string,
 ): Promise<APIResponse> {
-  return request.post(`/user/repos`, {
+  return request.post(endpoints.userRepos(), {
     data: { name: repository },
   });
 }
@@ -20,7 +29,7 @@ export async function getRepository(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return await request.get(`/repos/${user}/${repository}`);
+  return request.get(endpoints.repo(user, repository));
 }
 
 /**
@@ -31,7 +40,7 @@ export async function deleteRepository(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return request.delete(`/repos/${user}/${repository}`);
+  return request.delete(endpoints.repo(user, repository));
 }
 
 /**
@@ -43,7 +52,7 @@ export async function createIssue(
   repository: string,
   data: { title: string; body: string },
 ): Promise<APIResponse> {
-  return request.post(`/repos/${user}/${repository}/issues`, {
+  return request.post(endpoints.issues(user, repository), {
     data: {
       title: data.title,
       body: data.body,
@@ -59,7 +68,7 @@ export async function retrieveIssues(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return request.get(`/repos/${user}/${repository}/issues`);
+  return request.get(endpoints.issues(user, repository));
 }
 
 /**
@@ -70,7 +79,7 @@ export async function checkRepositoryStarred(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return request.get(`/user/starred/${user}/${repository}`);
+  return request.get(endpoints.starred(user, repository));
 }
 
 /**
@@ -81,7 +90,7 @@ export async function starRepository(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return request.put(`/user/starred/${user}/${repository}`);
+  return request.put(endpoints.starred(user, repository));
 }
 
 /**
@@ -92,7 +101,7 @@ export async function unstarRepository(
   user: string,
   repository: string,
 ): Promise<APIResponse> {
-  return request.delete(`/user/starred/${user}/${repository}`);
+  return request.delete(endpoints.starred(user, repository));
 }
 
 /**
