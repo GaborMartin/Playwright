@@ -1,5 +1,6 @@
 import { test, expect } from "fixtures/index";
 
+//Test comment
 test.describe("GitHub UI tests", () => {
   test("Homepage should be correctly visible", async ({ homePage }) => {
     await homePage.expectPageVisible();
